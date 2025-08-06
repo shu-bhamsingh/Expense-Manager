@@ -11,6 +11,8 @@ const URL = process.env.URL;
 
 const User = require('./models/UserSchema');
 const authRoutes = require('./routes/auth');
+const expenseRoutes = require('./routes/expense');
+const incomeRoutes = require('./routes/income');
 
 const app = express();
 const PORT = 5001 || process.env.PORT;
@@ -23,6 +25,8 @@ app.get("/", (req, res) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/expense', expenseRoutes);
+app.use('/income', incomeRoutes);
 
 mongoose.connect(URL).then(() => {
     console.log('Connected to the database');
