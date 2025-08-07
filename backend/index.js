@@ -8,17 +8,27 @@ const cors = require('cors');
 
 const SECRET = process.env.SECRET;
 const URL = process.env.URL;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+if (!GEMINI_API_KEY) {
+    console.warn('GEMINI_API_KEY not found in environment variables. Receipt processing will not work.');
+}
 
 const User = require('./models/UserSchema');
 const authRoutes = require('./routes/auth');
 const expenseRoutes = require('./routes/expense');
 const incomeRoutes = require('./routes/income');
+const receiptRoutes = require('./routes/receipts');
 
 const app = express();
 const PORT = 5001 || process.env.PORT;
 
-app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://expense-manager-uzof.vercel.app'],
+    credentials: true
+}));
 app.use(express.json());
+
 
 app.get("/", (req, res) => {
     res.send('Hello world');
@@ -27,8 +37,9 @@ app.get("/", (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/expense', expenseRoutes);
 app.use('/income', incomeRoutes);
+app.use('/receipts', receiptRoutes);
 
-mongoose.connect(URL).then(() => {
+mongoose.connect(URL).then((x) => {
     console.log('Connected to the database');
 }).catch((err) => {
     console.log(err);
