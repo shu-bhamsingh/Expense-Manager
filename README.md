@@ -3,9 +3,6 @@
 ## Overview
 Expense Manager is a comprehensive personal finance application designed to help users track their income and expenses, manage budgets, and gain insights into their spending habits. The application provides an intuitive interface for managing financial transactions, visualizing spending patterns, and maintaining a clear view of your financial health.
 
-## Video Demonstration
-[Watch Demo Video](https://drive.google.com/file/d/1U1a7Kn6y_29YPiY8VhSJi6gCEFWm0-Em/view?usp=sharing)
-
 ## Glimpses of the App
 
 ![Dashboard](https://drive.google.com/uc?export=view&id=1CFjJVT9tiooAlDLzW8Z27PEPK0hmatkA)
