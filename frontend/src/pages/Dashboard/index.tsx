@@ -18,8 +18,6 @@ import { Loader2 } from 'lucide-react';
 const Dashboard: React.FC = () => {
   const [incomeByCategory, setIncomeByCategory] = useState<CategoryData[]>([]);
   const [expensesByCategory, setExpensesByCategory] = useState<CategoryData[]>([]);
-  const [incomeByMonth, setIncomeByMonth] = useState<MonthData[]>([]);
-  const [expensesByMonth, setExpensesByMonth] = useState<MonthData[]>([]);
   const [dailyTransactions, setDailyTransactions] = useState<DailyTransactionData[]>([]);
   const [recentTransactions, setRecentTransactions] = useState<Transaction[]>([]);
   const [budget, setBudget] = useState<number>(0);
@@ -28,7 +26,7 @@ const Dashboard: React.FC = () => {
   const [remaining, setRemaining] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [timeframe, setTimeframe] = useState<'week' | 'month' | '3months' | 'year' | 'all'>('month');
+  const timeframe: 'week' | 'month' | '3months' | 'year' | 'all' = 'month';
 
   useEffect(() => {
     async function fetchData() {
@@ -45,8 +43,6 @@ const Dashboard: React.FC = () => {
         ]);
         setIncomeByCategory(incomeCat);
         setExpensesByCategory(expenseCat);
-        setIncomeByMonth(incomeMonth);
-        setExpensesByMonth(expenseMonth);
         setDailyTransactions(daily);
         setRecentTransactions(recent.map((tx: any) => ({
           id: tx._id,

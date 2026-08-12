@@ -8,13 +8,14 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ children: slides, autoSlide = false, autoSlideInterval = 3000 }) => {
   const [curr, setCurr] = useState<number>(0)
-  const next = () => setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
 
   useEffect(() => {
     if (!autoSlide) return
-    const slideInterval = setInterval(next, autoSlideInterval)
+    const slideInterval = setInterval(() => {
+      setCurr((current) => (current === slides.length - 1 ? 0 : current + 1))
+    }, autoSlideInterval)
     return () => clearInterval(slideInterval)
-  }, [autoSlide, autoSlideInterval])
+  }, [autoSlide, autoSlideInterval, slides.length])
 
   return (
     <div className='overflow-hidden relative'>

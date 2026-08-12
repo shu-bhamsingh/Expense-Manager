@@ -66,11 +66,6 @@ const TransactionsPage: React.FC = () => {
     fetchTransactions();
   }, []);
 
-  // Apply filters when transactions or filters change
-  useEffect(() => {
-    applyFilters();
-  }, [transactions, filters]);
-
   const fetchTransactions = async () => {
     setLoading(true);
     setError(null);
@@ -86,46 +81,42 @@ const TransactionsPage: React.FC = () => {
     }
   };
 
-  const applyFilters = () => {
+  // Apply filters when transactions or filters change
+  useEffect(() => {
     let result = [...transactions];
-    
-    // Filter by type
+
     if (filters.type !== 'all') {
       result = result.filter(t => t.type === filters.type);
     }
-    
-    // Filter by category
+
     if (filters.category) {
       result = result.filter(t => t.category === filters.category);
     }
-    
-    // Filter by date range
+
     if (filters.dateFrom) {
       const fromDate = new Date(filters.dateFrom);
       result = result.filter(t => new Date(t.date) >= fromDate);
     }
-    
+
     if (filters.dateTo) {
       const toDate = new Date(filters.dateTo);
-      // Set time to end of day
       toDate.setHours(23, 59, 59, 999);
       result = result.filter(t => new Date(t.date) <= toDate);
     }
-    
-    // Filter by amount range
+
     if (filters.amountMin) {
       const minAmount = parseFloat(filters.amountMin);
       result = result.filter(t => t.amount >= minAmount);
     }
-    
+
     if (filters.amountMax) {
       const maxAmount = parseFloat(filters.amountMax);
       result = result.filter(t => t.amount <= maxAmount);
     }
-    
+
     setFilteredTransactions(result);
-    setCurrentPage(1); // Reset to first page when filters change
-  };
+    setCurrentPage(1);
+  }, [transactions, filters]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
